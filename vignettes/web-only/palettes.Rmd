@@ -1,0 +1,24 @@
+---
+title: "All `ggprism` Palettes"
+output: 
+  rmarkdown::html_vignette:
+    fig_width: 6
+    fig_height: 4
+vignette: >
+  %\VignetteIndexEntry{All `ggprism` Palettes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(ggprism)
+```
+
+```{r, echo=FALSE}
+themes <- names(ggprism_data$themes)[-length(ggprism_data$themes)]
+
+for (i in themes) {
+  print(preview_theme(i))
+}
+```
