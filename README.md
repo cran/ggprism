@@ -9,6 +9,8 @@
 status](https://github.com/csdaw/ggprism/workflows/R-CMD-check/badge.svg)](https://github.com/csdaw/ggprism/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/csdaw/ggprism/branch/master/graph/badge.svg)](https://codecov.io/gh/csdaw/ggprism?branch=master)
+[![CRAN
+version](https://www.r-pkg.org/badges/version/ggprism?color=green)](https://cran.r-project.org/package=ggprism)
 [![Website
 https://csdaw.github.io/ggprism](https://img.shields.io/website-up-down-green-red/https/csdaw.github.io/ggprism.svg)](https://csdaw.github.io/ggprism/)
 <!-- badges: end -->
@@ -19,7 +21,13 @@ Prism’* look.
 
 ## Install
 
-Install the development version from GitHub.
+Install the latest version from CRAN:
+
+``` r
+install.packages("ggprism")
+```
+
+Install the development version from GitHub:
 
 ``` r
 remotes::install_github("csdaw/ggprism")
@@ -91,26 +99,26 @@ Some ways to contribute might include:
 ## Cite
 
 I would be very grateful if you could cite this package if you use it in
-your publication.
+your publication. Use `citation("ggprism")` or for convenience:
 
-Charlotte Dawson (2021), *ggprism: A ggplot2 extension inspired by
-GraphPad Prism*. R package version 1.0.1,
-<https://csdaw.github.io/ggprism/>.
+Charlotte Dawson (2021). *ggprism: A ‘ggplot2’ Extension Inspired by
+‘GraphPad Prism’*. R package version 1.0.1.
+<https://cran.r-project.org/package=ggprism>
 
 ## More Examples
 
 Recreates [this
 figure](https://cdn.graphpad.com/assets/0.27.0/images/srcset/prism-get-actionable-help-w1920-800.png)
 from the GraphPad Prism website. See [this
-vignette](https://csdaw.github.io/ggprism/articles/ex1-dose.html) for
-the source code and step-by-step instructions.
+vignette](https://csdaw.github.io/ggprism/articles/web-only/ex1-dose.html)
+for the source code and step-by-step instructions.
 
 <img src="man/figures/README-ex2-1.png" width="400" /><img src="man/figures/README-ex2-2.png" width="400" />
 
 Recreates Figure 2B from [Matsushita & Nishimura
 (2020)](https://doi.org/10.1038/s42003-020-0889-1), which was originally
 created using GraphPad Prism. See [this
-vignette](https://csdaw.github.io/ggprism/articles/ex2-wings.html) for
-the source code and step-by-step instructions.
+vignette](https://csdaw.github.io/ggprism/articles/web-only/ex2-wings.html)
+for the source code and step-by-step instructions.
 
 <img src="man/figures/README-ex3-1.png" width="400" /><img src="man/figures/README-ex3-2.png" width="400" />

@@ -42,9 +42,9 @@ g <- p + annotation_ticks(outside = TRUE) +
 expect_silent(ggplotGrob(g))
 
 ticks <- layer_grob(g, 2L)[[1]]$children[[1]]$y1
-lapply(
-  ticks,
-  function(x) expect_true(as.numeric(x) < 0)
+expect_equal(
+  grid::convertUnit(ticks, "pt", valueOnly = TRUE),
+  c(rep(-4.8, 5), rep(-2.4, 3))
 )
 
 # test that tick lengths can be set
@@ -57,6 +57,16 @@ g <- p + annotation_ticks(
 expect_silent(ggplotGrob(g))
 expect_identical(g$layers[[2]]$geom_params$tick.length, unit(20, "pt"))
 expect_identical(g$layers[[2]]$geom_params$minor.length, unit(10, "pt"))
+
+# test that you can set the colour with both spellings
+g1 <- p + annotation_ticks(colour = "red")
+g2 <- p + annotation_ticks(color = "red")
+
+expect_silent(ggplotGrob(g1))
+expect_true(g1$layers[[2]]$geom_params$colour == "red")
+
+expect_silent(ggplotGrob(g2))
+expect_true(g2$layers[[2]]$geom_params$colour == "red")
 
 #### Sanity checks -------------------------------------------------------------
 # test that warning occurs if both colour and color are set

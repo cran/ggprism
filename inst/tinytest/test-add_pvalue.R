@@ -43,11 +43,20 @@ each.vs.ref <- tibble::tribble(
   "0.5",   "2",     1.27e-7,  38
 )
 
+each.vs.ref.grouped <- tibble::tribble(
+  ~group1, ~group2, ~p.signif, ~y.position, ~supp,
+  "0.5",   "1",     "***",     33.6,        "OJ",
+  "0.5",   "2",     "***",     39,          "OJ",
+  "0.5",   "1",     "***",     36.6,        "VC",
+  "0.5",   "2",     "***",     42,          "VC"
+)
+each.vs.ref.grouped$supp <- factor(each.vs.ref.grouped$supp)
+
 each.vs.basemean <- tibble::tribble(
   ~group1, ~group2, ~p.adj,     ~y.position,
   "all",   "0.5",   0.00000087, 35,
-  "all",   "0.5",   0.512,      35,
-  "all",   "0.5",   0.00000087, 35
+  "all",   "1",     0.512,      35,
+  "all",   "2",     0.00000087, 35
 )
 
 # pairwise
@@ -77,6 +86,9 @@ base.tg2 <- ggplot(tg, aes(x = dose, y = len)) +
 
 base.tg3 <- ggplot(tg, aes(x = dose, y = len)) +
   geom_boxplot(aes(fill = supp))
+
+base.tg4 <- ggplot(tg, aes(x = supp, y = len)) +
+  geom_boxplot(aes(fill = dose))
 
 #### Tests (brackets) ----------------------------------------------------------
 
@@ -213,6 +225,11 @@ g <- base.tg2 + add_pvalue(each.vs.basemean)
 
 expect_silent(ggplotGrob(g))
 
+# test that comparison against reference group works with opposite orientation
+g <- base.tg2 + add_pvalue(each.vs.ref, xmin = "group2", xmax = "group1")
+
+expect_silent(ggplotGrob(g))
+
 # test that add_pvalue works with facets using grouped data and free scales
 base.facet <- base.tg1 + facet_wrap(~ dose, scales = "free")
 g <- base.facet + add_pvalue(two.means.grouped1) # must have dose column
@@ -251,13 +268,22 @@ expect_equal(length(gt$children[[4]]$children), 6)
 
 #### Tests (no brackets) -------------------------------------------------------
 
+# test that remove.bracket works
+g <- base.tg2 + add_pvalue(each.vs.ref, remove.bracket = TRUE)
+expect_silent(ggplotGrob(g))
+
+# test that remove.bracket works with opposite reference orientation
+g <- base.tg2 + add_pvalue(each.vs.ref, remove.bracket = TRUE,
+                           xmin = "group2", xmax = "group1")
+expect_silent(ggplotGrob(g))
+
 # test that class is GeomText when brackets are removed
 # need to provide x
 g <- base.tg1 + add_pvalue(two.means, x = 1.5, remove.bracket = TRUE)
 expect_equal(class(g$layers[[2]]$geom), c("GeomText", "Geom", "ggproto", "gg"))
 
 # test that comparison against null works
-g <- base.tg2 + add_pvalue(one.mean, x = "dose")
+g <- base.tg2 + add_pvalue(one.mean, x = "dose", y = 35)
 
 expect_silent(ggplotGrob(g))
 
@@ -294,6 +320,11 @@ g <- base.tg2 + add_pvalue(each.vs.ref, coord.flip = TRUE,
 
 expect_silent(ggplotGrob(g))
 
+# test that grouped comparison against reference works
+g <- base.tg4 + add_pvalue(each.vs.ref.grouped, x = "supp")
+
+expect_silent(ggplotGrob(g))
+
 #### Sanity checks -------------------------------------------------------------
 
 # test that warning occurs if colour and color are set
@@ -314,7 +345,9 @@ two.means.copy$group2 <- 222
 expect_silent(base.tg1 + add_pvalue(two.means.copy, xmin = "apple", xmax = "banana"))
 
 # test that error occurs if xmin column specified is missing from data
-expect_error(base.tg1 + add_pvalue(two.means, xmin = "apple"))
+expect_error(base.tg1 + add_pvalue(two.means, xmin = "apple"),
+             "can't find the xmin variable 'apple' in the data")
 
 # test that error occurs if label column specified is missing from data
-expect_error(base.tg1 + add_pvalue(two.means, label = "apple"))
+expect_error(base.tg1 + add_pvalue(two.means, label = "apple"),
+             "can't find the label variable 'apple' in the data")

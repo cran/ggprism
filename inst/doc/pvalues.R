@@ -219,8 +219,7 @@ df_p_val <- ToothGrowth %>%
   rstatix::group_by(factor(dose)) %>% 
   rstatix::t_test(len ~ 1, mu = 26) %>% 
   rstatix::adjust_pvalue(p.col = "p", method = "holm") %>% 
-  rstatix::add_significance(p.col = "p.adj") %>% 
-  rstatix::add_xy_position()
+  rstatix::add_significance(p.col = "p.adj")
 
 p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
   stat_summary(geom = "col", fun = mean) + 
@@ -237,6 +236,7 @@ p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) +
 p + add_pvalue(df_p_val, 
                xmin = "group1", 
                x = "factor(dose)", 
+               y = 37,
                label = "p.adj.signif")
 
 ## ---- fig.width=4, fig.height=3.5---------------------------------------------
@@ -353,6 +353,7 @@ p + add_pvalue(df_p_val)
 ## ---- fig.height=7------------------------------------------------------------
 # add a grouping variable to ToothGrowth
 tg <- ToothGrowth
+tg$dose <- factor(tg$dose)
 tg$grp <- factor(rep(c("grp1", "grp2"), 30))
 
 # construct the p-value table by hand
@@ -365,7 +366,7 @@ df_p_val <- data.frame(
   dose = c("0.5", "1")
 )
 
-p <- ggplot(ToothGrowth, aes(x = factor(supp), y = len)) + 
+p <- ggplot(tg, aes(x = factor(supp), y = len)) + 
   geom_boxplot(width = 0.4) + 
   facet_wrap(grp ~ dose, scales = "free") + 
   theme_prism()
