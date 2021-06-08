@@ -198,8 +198,7 @@ p2 <- p + add_pvalue(df_p_val, label = "p.adj.signif", remove.bracket = TRUE)
 p1 + p2
 
 ## ---- fig.width=4, fig.height=3.5---------------------------------------------
-df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose, ref.group = "all") %>% 
-  rstatix::add_xy_position()
+df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose, ref.group = "all")
 
 p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
   stat_summary(geom = "col", fun = mean) + 
@@ -212,7 +211,9 @@ p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) +
   coord_cartesian(ylim = c(0, 40)) + 
   scale_y_continuous(breaks = seq(0, 40, 5), expand = c(0, 0))
 
-p + add_pvalue(df_p_val, label = "p.adj.signif")
+p + add_pvalue(df_p_val, 
+               label = "p.adj.signif", 
+               y.position = 35)
 
 ## ---- fig.width=4, fig.height=3.5---------------------------------------------
 df_p_val <- ToothGrowth %>% 
