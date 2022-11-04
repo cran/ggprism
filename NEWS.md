@@ -1,3 +1,12 @@
+# ggprism 1.0.4
+
+* Update wings vignette with `linewidth` aesthetic from ggplot2 v3.4.0
+* Stop relying on unexported ggplot2 functions to maintain compatibility
+with ggplot2 v3.4.0 (#20)
+* Fix bug in `StatBracket` (#18)
+* Add `parse` argument to `add_pvalue()` which allows the use of plotmath
+expressions for the text labels (#10).
+
 # ggprism 1.0.3
 
 * Fix one of the figures in p-values vignette

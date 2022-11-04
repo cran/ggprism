@@ -126,6 +126,7 @@ result <- p.adjust(c(result1, result2), method = "BH")
 # instead just specify x position in the same way as y.position
 df_p_val <- data.frame(
   group1 = c(0.5, 0.5),
+  group2 = c(1, 2),
   x = c(2, 3),
   label = signif(result, digits = 3),
   y.position = c(35, 35)
@@ -133,18 +134,44 @@ df_p_val <- data.frame(
 
 ## ---- fig.height=3.5----------------------------------------------------------
 p1 <- p + add_pvalue(df_p_val, 
-               xmin = "group1", 
-               x = "x", 
-               label = "label",
-               y.position = "y.position")
+                     xmin = "group1", 
+                     x = "x", 
+                     label = "label",
+                     y.position = "y.position")
 
 p2 <- p + add_pvalue(df_p_val, 
-               xmin = "group1", 
-               x = "x", 
-               label = "p = {label}",
-               y.position = "y.position",
-               label.size = 3.2,
-               fontface = "bold")
+                     xmin = "group1", 
+                     x = "x", 
+                     label = "p = {label}",
+                     y.position = "y.position",
+                     label.size = 3.2,
+                     fontface = "bold")
+
+p1 + p2
+
+## ---- fig.height=3.5----------------------------------------------------------
+# plotmath expression to have superscript exponent
+df_p_val$p.exprs <- paste0("P==1*x*10^", round(log10(df_p_val$label), 0))
+
+# as above but with italics
+df_p_val$p.exprs.ital <- lapply(
+  paste(round(log10(df_p_val$label), 0)),
+  function(x) bquote(italic("P = 1x10"^.(x)))
+)
+
+p1 <- p + add_pvalue(df_p_val, 
+                     xmin = "group1", 
+                     x = "x", 
+                     label = "p.exprs",
+                     y.position = "y.position",
+                     parse = TRUE)
+
+p2 <- p + add_pvalue(df_p_val, 
+                     xmin = "group1", 
+                     x = "x", 
+                     label = "p.exprs.ital",
+                     y.position = "y.position",
+                     parse = TRUE)
 
 p1 + p2
 
@@ -333,7 +360,7 @@ p <- ggplot(ToothGrowth, aes(x = factor(supp), y = len)) +
   facet_wrap(
     ~ dose, scales = "free", 
     labeller = labeller(dose = function(x) paste("dose =", x))
-) + 
+  ) + 
   theme_prism()
 
 p + add_pvalue(df_p_val)
