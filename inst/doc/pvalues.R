@@ -13,7 +13,7 @@ library(magrittr)
 ## -----------------------------------------------------------------------------
 str(sleep)
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 # create a jitter plot of the sleep data set
 # and indicate the means
 p <- ggplot(sleep, aes(x = group, y = extra)) +
@@ -37,7 +37,7 @@ df_p_val <- data.frame(
   y.position = 6
 )
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 # add p-value brackets
 p1 <- p + add_pvalue(df_p_val,
                      xmin = "group1",
@@ -61,7 +61,7 @@ p1 + p2
 # return column names back to default
 colnames(df_p_val) <- c("group1", "group2", "label", "y.position")
 
-## ---- fig.width=7, fig.height=7-----------------------------------------------
+## ----fig.width=7, fig.height=7------------------------------------------------
 # change bracket and label aesthetics
 p1 <- p + add_pvalue(df_p_val,
                      colour = "red", # label
@@ -89,7 +89,7 @@ p4 <- p + add_pvalue(df_p_val, tip.length = c(0.2, 0))
 
 (p1 + p2) / (p3 + p4)
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 # position label above "group1"
 p1 <- p + add_pvalue(df_p_val, label = "p = {label}", 
                      remove.bracket = TRUE, x = 1)
@@ -103,7 +103,7 @@ p1 + p2
 ## -----------------------------------------------------------------------------
 str(ToothGrowth)
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 # create a box plot of the ToothGrowth data set
 p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) +
   geom_boxplot(aes(fill = dose), colour = "black") + 
@@ -132,7 +132,7 @@ df_p_val <- data.frame(
   y.position = c(35, 35)
 )
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 p1 <- p + add_pvalue(df_p_val, 
                      xmin = "group1", 
                      x = "x", 
@@ -149,7 +149,7 @@ p2 <- p + add_pvalue(df_p_val,
 
 p1 + p2
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 # plotmath expression to have superscript exponent
 df_p_val$p.exprs <- paste0("P==1*x*10^", round(log10(df_p_val$label), 0))
 
@@ -175,7 +175,7 @@ p2 <- p + add_pvalue(df_p_val,
 
 p1 + p2
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose, ref.group = "0.5") %>% 
   rstatix::add_xy_position()
 
@@ -183,7 +183,7 @@ p + add_pvalue(df_p_val,
                label = "p = {p.adj}",
                remove.bracket = TRUE)
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 df_p_val <- rstatix::t_test(ToothGrowth, len ~ supp) %>% 
   rstatix::add_x_position()
 
@@ -201,7 +201,7 @@ p <- ggplot(ToothGrowth, aes(x = factor(supp), y = len)) +
 # normal plot
 p + add_pvalue(df_p_val, y.position = 30)
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose, ref.group = "0.5") %>% 
   rstatix::add_xy_position()
 
@@ -224,7 +224,7 @@ p2 <- p + add_pvalue(df_p_val, label = "p.adj.signif", remove.bracket = TRUE)
 
 p1 + p2
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose, ref.group = "all")
 
 p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
@@ -242,7 +242,7 @@ p + add_pvalue(df_p_val,
                label = "p.adj.signif", 
                y.position = 35)
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 df_p_val <- ToothGrowth %>% 
   rstatix::group_by(factor(dose)) %>% 
   rstatix::t_test(len ~ 1, mu = 26) %>% 
@@ -267,7 +267,7 @@ p + add_pvalue(df_p_val,
                y = 37,
                label = "p.adj.signif")
 
-## ---- fig.width=4, fig.height=3.5---------------------------------------------
+## ----fig.width=4, fig.height=3.5----------------------------------------------
 df_p_val <- rstatix::t_test(ToothGrowth, len ~ dose)
 
 p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
@@ -281,7 +281,7 @@ p + add_pvalue(df_p_val,
                y.position = c(44, 41, 44),
                bracket.shorten = c(0.025, 0, 0.025))
 
-## ---- fig.width=5, fig.height=3.5---------------------------------------------
+## ----fig.width=5, fig.height=3.5----------------------------------------------
 df_p_val <- ToothGrowth %>% 
   rstatix::group_by(supp) %>% 
   rstatix::t_test(len ~ dose) %>% 
@@ -302,7 +302,7 @@ p + add_pvalue(df_p_val,
                bracket.colour = "black",
                show.legend = FALSE)
 
-## ---- fig.width=5, fig.height=3.5---------------------------------------------
+## ----fig.width=5, fig.height=3.5----------------------------------------------
 df_p_val <- ToothGrowth %>%
   rstatix::group_by(dose) %>%
   rstatix::t_test(len ~ supp) %>%
@@ -321,7 +321,7 @@ p + add_pvalue(df_p_val,
                label = "p = {p.adj}",
                tip.length = 0)
 
-## ---- fig.width=5, fig.height=4-----------------------------------------------
+## ----fig.width=5, fig.height=4------------------------------------------------
 df_p_val1 <- ToothGrowth %>%
   rstatix::group_by(dose) %>%
   rstatix::t_test(len ~ supp) %>%
@@ -349,7 +349,7 @@ p + add_pvalue(df_p_val1,
              bracket.nudge.y = 2,
              step.increase = 0.015)
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 df_p_val <- ToothGrowth %>% 
   rstatix::group_by(dose) %>% 
   rstatix::t_test(len ~ supp) %>% 
@@ -365,7 +365,7 @@ p <- ggplot(ToothGrowth, aes(x = factor(supp), y = len)) +
 
 p + add_pvalue(df_p_val)
 
-## ---- fig.height=3.5----------------------------------------------------------
+## ----fig.height=3.5-----------------------------------------------------------
 df_p_val <- ToothGrowth %>% 
   rstatix::group_by(supp) %>% 
   rstatix::t_test(len ~ dose) %>% 
@@ -378,7 +378,7 @@ p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) +
 
 p + add_pvalue(df_p_val)
 
-## ---- fig.height=7------------------------------------------------------------
+## ----fig.height=7-------------------------------------------------------------
 # add a grouping variable to ToothGrowth
 tg <- ToothGrowth
 tg$dose <- factor(tg$dose)

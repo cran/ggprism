@@ -9,11 +9,11 @@ library(ggplot2)
 library(ggprism)
 library(patchwork)
 
-## ---- fig.width=8, fig.height=3-----------------------------------------------
+## ----fig.width=8, fig.height=3------------------------------------------------
 # compare theme_grey() to theme_prism()
 p1 <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
   stat_summary(aes(fill = factor(dose)), na.rm = TRUE,
-               geom = "col", fun = mean, colour = "black", size = 0.9) + 
+               geom = "col", fun = mean, colour = "black", linewidth = 0.9) + 
   scale_y_continuous(limits = c(0, 30), expand = c(0, 0))
 
 p2 <- p1 + theme_prism(base_size = 14)
@@ -25,7 +25,7 @@ p4 <- p1 + theme_prism(palette = "flames", base_size = 14)
 
 p3 + p4
 
-## ---- fig.width=8, fig.height=3-----------------------------------------------
+## ----fig.width=8, fig.height=3------------------------------------------------
 # compare some colour and fill palettes with default theme_prism()
 p <- ggplot(ToothGrowth, aes(x = factor(supp), y = len)) + 
   geom_boxplot(aes(colour = factor(supp), fill = factor(supp))) + 
@@ -52,7 +52,7 @@ p4 <- p + theme_prism(palette = "neon") +
 
 p3 + p4
 
-## ---- fig.width=8, fig.height=3-----------------------------------------------
+## ----fig.width=8, fig.height=3------------------------------------------------
 # compare ggplot2 default shape order with ggprism default shape order
 p1 <- ggplot(msleep[complete.cases(msleep), ], 
              aes(x = sleep_rem, y = sleep_total)) + 
@@ -64,7 +64,7 @@ p2 <- p1 + scale_shape_prism()
 
 p1 + p2
 
-## ---- fig.width=7, fig.height=6-----------------------------------------------
+## ----fig.width=7, fig.height=6------------------------------------------------
 # show the 4 different axis guides included in ggprism
 p <- ggplot(ToothGrowth, aes(x = factor(dose), y = len)) + 
   geom_jitter(aes(shape = factor(dose)), width = 0.2, size = 2) + 
@@ -83,7 +83,7 @@ p4 <- p + scale_y_continuous(limits = c(0, 40), guide = "prism_offset_minor")
 
 (p1 + p2) / (p3 + p4)
 
-## ---- fig.width=6, fig.height=4-----------------------------------------------
+## ----fig.width=6, fig.height=4------------------------------------------------
 # make a p-value table
 df_p_val <- data.frame(
   group1 = "OJ",
