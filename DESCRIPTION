@@ -1,6 +1,6 @@
 Package: ggprism
 Title: A 'ggplot2' Extension Inspired by 'GraphPad Prism'
-Version: 1.0.5
+Version: 1.0.6
 Authors@R: 
     person(given = "Charlotte",
            family = "Dawson",
@@ -17,7 +17,7 @@ URL: https://csdaw.github.io/ggprism/, https://github.com/csdaw/ggprism
 BugReports: https://github.com/csdaw/ggprism/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends: R (>= 3.2)
 Imports: digest, ggplot2 (>= 3.2.0), glue, grid, gtable (>= 0.1.1),
         rlang (>= 0.3.0), scales (>= 0.5.0), stats, tibble, utils
@@ -25,8 +25,9 @@ Suggests: covr, dplyr, ggbeeswarm, ggnewscale, knitr, magrittr,
         patchwork, rmarkdown, rstatix, tidyr, tinytest
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-03-21 10:15:34 UTC; csd51
-Author: Charlotte Dawson [aut, cre] (<https://orcid.org/0000-0002-7151-5971>)
+Packaged: 2025-05-17 10:19:04 UTC; csd51
+Author: Charlotte Dawson [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-7151-5971>)
 Maintainer: Charlotte Dawson <csdaw@outlook.com>
 Repository: CRAN
-Date/Publication: 2024-03-21 10:50:02 UTC
+Date/Publication: 2025-05-17 10:50:02 UTC
